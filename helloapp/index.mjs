@@ -1,26 +1,24 @@
-// npmのexpressモジュール
 import express from "express";
-// npmのhttpserver機能のモジュール
 import http from 'http';
 
-// expressモジュール内に定義されているobjectからインスタンスを生成
+// expressのインスタンス作成
 const app = express();
 const PORT_NUMBER = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
+// お試しサンプル
 let helloMessage = "hello express server";
-// リクエストURLの定義と応答内容を定義する
+
 app.get('/hello',(req,res)=>{
     res.send(helloMessage);
 });
 
-// 機能を追加してみる
+
 let counter = 0;
 app.get('/countup', (req,res)=>{
     counter ++;
-    // ""に+することで型変換している
     res.send(""+counter);
 });
 
@@ -53,11 +51,9 @@ app.delete('/message', (req,res)=>{
     res.status(200).send();
 });
 
-// expressモジュール内に定義されているobjectからインスタンスを生成
-// 引数をexpressオブジェクトにして呼び出されるようにしている
+// moduleを利用したwebserver機能
 const webServer = http.createServer(app);
 
-// listenでwebserverが起動する。port番号必要
 webServer.listen(3000,()=>{
     console.log("server running PORT:"+PORT_NUMBER);
 });
